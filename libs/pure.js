@@ -56,8 +56,16 @@ $p.core = function(sel, ctxt, plugins){
 			IMG:'src',
 			INPUT:'value'
 		},
-		isArray;
 	
+		// check if the argument is an array
+		isArray = Array.isArray ?
+			function(o) {
+				return Array.isArray(o);
+			} :
+			function(o) {
+				return Object.prototype.toString.call( o ) === "[object Array]";
+			};
+
 	return plugins;
 
 
@@ -107,12 +115,6 @@ $p.core = function(sel, ctxt, plugins){
 			})(node);
 	}
 
-	// check if the argument is an array
-	function isArray(o) {
-		return Object.prototype.toString.call( o ) === "[object Array]";
-	};
-
-	
 	// returns the string generator function
 	function wrapquote(qfn, f){
 		return function(ctxt){
